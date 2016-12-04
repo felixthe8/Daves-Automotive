@@ -678,15 +678,15 @@ INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
 /*Queries*/
 /*1. List the customers.  For each customer, indicate which category he or she 
      fall into, and his or her contact information.*/
-    SELECT "Steady", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Steady" AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM steady
         NATURAL JOIN customer
         UNION
-    SELECT "Premier", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Premier"  AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM premier
         NATURAL JOIN customer
     UNION
-    SELECT "Prospect", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Prospect"  AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM prospect
         NATURAL JOIN customer;
 
