@@ -898,6 +898,14 @@ inner join mechanic using (eID));
                         GROUP BY certID
                         ORDER BY COUNT(*) DESC 
                         LIMIT 1);
+			
+	/* 3 of 4
+	This Query shows prospective that have not become steady customers
+	*/
+	SELECT customerFirstName, customerLastName
+	FROM customer
+	INNER JOIN prospect USING (customerID)
+	WHERE isNowExisting = false;
 
 
 
