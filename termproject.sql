@@ -379,9 +379,9 @@ INSERT INTO steady(customerID)
 
 INSERT INTO premier(customerID, monthlyFee)
 	VALUES
-       	('06', 200),
-       	('07', 220),
-       	('08', 350);
+       	('06', 20),
+       	('07', 22),
+       	('08', 35);
 
 INSERT INTO private(customerID, address, zipcode)
 	VALUES
