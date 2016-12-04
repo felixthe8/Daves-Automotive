@@ -822,3 +822,13 @@ SELECT ename from employee
 INNER JOIN mechanic USING (eID)
 WHERE mechanic.eID NOT IN
 (SELECT eID from technician );
+
+
+/*2 of 4 additional query Find the most popular certificate among the mechanics*/
+SELECT DISTINCT certName , certID from certification
+INNER JOIN certificate_instance USING (certID)
+WHERE certificate_instance.certID = ( SELECT certID FROM certificate_instance 
+                GROUP BY certID
+                ORDER BY COUNT(*) DESC 
+                LIMIT 1);
+                
