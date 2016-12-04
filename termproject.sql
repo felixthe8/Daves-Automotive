@@ -562,6 +562,11 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
         ('00008', '1GKDT13S342329642', '2016-12-10', '809898239915394', '33610'),
         ('00009', '1GKDT13S342329642', '2016-12-09', '809898239915394', '33610'),
         ('00010', '1GKDT13S342329642', '2016-12-11', '809898239915394', '33610');
+	
+INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
+  VALUES
+       	('00011', 'JHLRD18691C097003', '2016-12-18', '576027904033696', '46301'),
+        ('00012', '1FBNE31S04HB51098', '2016-12-21', '925812068577979', '10210');
         	
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
@@ -579,6 +584,12 @@ INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
         ('00008','Brake Change', '1.5', '809898239915394'),
        	('00009','Wheel Alignment', '2','809898239915394'),
        	('00010','Tire Change', '0.25', '809898239915394');
+	
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
+        ('00011','Brake Change', '1.5', '809898239915394'),
+       	('00011','Wheel Alignment', '2','809898239915394'),
+        ('00012','Tire Change', '0.25', '809898239915394');
        
 INSERT INTO task(orderNumber, maintenanceItem, mechanicsAssigned)
   VALUES
