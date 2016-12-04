@@ -729,6 +729,19 @@ INNER JOIN orderLine USING (orderNumber)
 GROUP BY customerFirstName, customerLastName
 ORDER BY Royalty desc;
 
+/*10.	Report on the steady customers based on the net profit that we have 
+made from them over the past year, and the dollar amount of that profit, in 
+order from the greatest to the least.
+*/
+SELECT customerFirstName, customerLastName, SUM(laborHours * 40 *0.7) AS "Profit",
+SUM(laborHours * 40 *0.3) AS "Overhead"
+FROM customer
+INNER JOIN steady USING (customerID)
+INNER JOIN car using (customerID)
+INNER JOIN workOrder USING (carVin)
+INNER JOIN orderLine USING (orderNumber)
+GROUP BY customerFirstName, customerLastName
+ORDER BY SUM(laborHours * 40 *0.7) desc;
 
 /*11. List the three services that we have performed the most in the last year 
       and how many times they were performed. */
