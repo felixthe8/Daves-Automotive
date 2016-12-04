@@ -762,7 +762,7 @@ SELECT skillName FROM skill
 ORDER BY skillName ASC  LIMIT 3;
 
 
-/*15. SYNTAX ERROR*/
+/*15. SYNTAX ERROR? List the employees who are service techs and mechanics*/
 select ename from employee
 inner join mechanic using (eID)
 where ename in (
