@@ -740,6 +740,17 @@ GROUP BY  orderLine.jobDescription
 order by  orderLine.jobDescription asc
 limit 3;
 
+/*12. List the three services that have brought in the most money in the last 
+year along with that amount of money.
+*/
+select orderLine.jobDescription, SUM(laborHours * 40)
+from workOrder
+inner join orderLine using (orderNumber)
+WHERE orderDate BETWEEN '2015-1-1' AND '2016-12-31'
+GROUP BY  orderLine.jobDescription
+order by  SUM(laborHours * 40) DESC
+limit 3;
+
 /*13. Find the mechanic who is mentoring the most other mechanics.  List the 
       skills that the mechanic is passing along to the other mechanics.*/
 select DISTINCT ename, skillName from employee 
