@@ -804,6 +804,17 @@ ORDER BY Royalty desc;
 /*9. The premier customers and the difference between what they have paid in the 
 past year, versus the services that they actually used during that same time.  
 List from the customers with the largest difference to the smallest.*/
+SELECT customerFirstName, customerLastName, SUM(laborHours * 40) AS "Cost Of services", 
+monthlyFee *12 AS "Year To Date Payments", (SUM(laborHours * 40) - monthlyFee *12) AS "Savings"
+FROM customer
+INNER JOIN premier USING (customerID)
+INNER JOIN car USING (customerID)
+INNER JOIN workOrder USING (carVin)
+INNER JOIN orderLine USING (orderNumber)
+WHERE orderDate BETWEEN '2016-1-1' AND '2016-12-31'
+GROUP BY customerFirstName, customerLastName
+ORDER BY (SUM(laborHours * 40) - monthlyFee *12) DESC
+LIMIT 3;
 
 /*10.	Report on the steady customers based on the net profit that we have 
 made from them over the past year, and the dollar amount of that profit, in 
