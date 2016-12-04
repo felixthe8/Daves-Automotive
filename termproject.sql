@@ -764,10 +764,10 @@ ORDER BY skillName ASC  LIMIT 3;
 
 /*15. SYNTAX ERROR? List the employees who are service techs and mechanics*/
 select ename from employee
-inner join mechanic using (eID)
+inner join technician using (eID)
 where ename in (
 select ename from employee
-inner join technician using (eID));
+inner join mechanic using (eID));
 
 
 /*16. Four additional queries that you make up yourselves. One query per person.  
