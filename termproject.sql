@@ -818,7 +818,8 @@ GRANT SELECT ON customer_address_v TO public;
 CREATE VIEW mechanic_mentorship_v AS
 SELECT  DISTINCT (m1.eID) AS 'Student ID' , (SELECT ename from employee where m1.eID = employee.eID) AS 'Student Name' , (m2.mentorID) AS 'Mentor ID', (SELECT ename from employee where m2.mentorID = employee.eID) AS 'Mentor Name' from employee
 JOIN mentorship m1 on employee.eID = m1.eID
-JOIN mentorship m2 on employee.eID = m2.eID;
+JOIN mentorship m2 on employee.eID = m2.eID
+ORDER BY (SELECT ename from employee where m2.mentorID = employee.eID), (SELECT ename from employee where m1.eID = employee.eID);
 
 /* 5 5.	Prospective_resurrection_v – List all of the prospective customers 
 who have had three or more contacts, and for whom the most recent contact 
