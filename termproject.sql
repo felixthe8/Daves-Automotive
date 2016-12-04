@@ -8,9 +8,6 @@ CREATE TABLE customer(
     CONSTRAINT customer_pk PRIMARY KEY (customerID)
 );
 
-
-
-
 CREATE TABLE existing_c(
     customerID              VARCHAR(20) NOT NULL,
     lastVisit               DATE,
@@ -20,9 +17,6 @@ CREATE TABLE existing_c(
     FOREIGN KEY (customerID)
     REFERENCES customer (customerID)
 );
-
-
-
 
 CREATE TABLE prospect(
     customerID              VARCHAR(20) NOT NULL,
@@ -38,13 +32,6 @@ CREATE TABLE prospect(
     REFERENCES existing_c(customerID)
 );
 
-
-
-
-
-
-
-
 CREATE TABLE steady(
     customerID              VARCHAR(20) NOT NULL,
     CONSTRAINT steady_pk    PRIMARY KEY (customerID),
@@ -52,9 +39,6 @@ CREATE TABLE steady(
     FOREIGN KEY (customerID)
     REFERENCES existing_c (customerID)
 );
-
-
-
 
 CREATE TABLE premier(
     customerID              VARCHAR(20) NOT NULL,
@@ -64,9 +48,6 @@ CREATE TABLE premier(
     FOREIGN KEY (customerID)
     REFERENCES existing_c (customerID)
 );
-
-
-
 
 CREATE TABLE private(
     customerID              VARCHAR(20) NOT NULL,
@@ -79,9 +60,6 @@ CREATE TABLE private(
     REFERENCES customer (customerID)
 );
 
-
-
-
 CREATE TABLE corporate(
     customerID              VARCHAR(20) NOT NULL,
     CONSTRAINT corporate_pk
@@ -90,9 +68,6 @@ CREATE TABLE corporate(
     FOREIGN KEY (customerID)
     REFERENCES customer (customerID)
 );
-
-
-
 
 CREATE TABLE appointment(
     customerID              VARCHAR(20) NOT NULL,
@@ -103,9 +78,6 @@ CREATE TABLE appointment(
     FOREIGN KEY (customerID)
     REFERENCES customer (customerID)
 );
-
-
-
 
 CREATE TABLE car(
     customerID              VARCHAR(20) NOT NULL,
@@ -120,18 +92,8 @@ CREATE TABLE car(
     REFERENCES customer (customerID)
 );
 
-
-
-
 ALTER TABLE car
     ADD isAccidental    BOOLEAN;
-
-
-
-
-
-
-
 
 CREATE TABLE carMiles(
     carVin                  VARCHAR(20) NOT NULL,
@@ -143,9 +105,6 @@ CREATE TABLE carMiles(
     FOREIGN KEY (carVin)
     REFERENCES car (carVin)
 );
-
-
-
 
 CREATE TABLE notifications(
     customerID              VARCHAR(20) NOT NULL,
@@ -161,18 +120,12 @@ CREATE TABLE notifications(
     REFERENCES car (carVin)
 );
 
-
-
-
 CREATE TABLE special(
     sName                   VARCHAR(20) NOT NULL,
     coupon                  VARCHAR(20),
     CONSTRAINT special_pk
     PRIMARY KEY (sName)
 );
-
-
-
 
 CREATE TABLE prospectSpecial(
     customerID              VARCHAR(20) NOT NULL,
@@ -188,9 +141,6 @@ CREATE TABLE prospectSpecial(
     REFERENCES special (sName)
 );
 
-
-
-
 CREATE TABLE contact(
     customerID              VARCHAR(20) NOT NULL,
     method_c                VARCHAR(20),
@@ -201,9 +151,6 @@ CREATE TABLE contact(
     FOREIGN KEY (customerID)
     REFERENCES prospect (customerID)
 );
-
-
-
 
 CREATE TABLE address(
     customerID              VARCHAR(20) NOT NULL,
@@ -217,7 +164,6 @@ CREATE TABLE address(
     REFERENCES customer (customerID)
 );
 
-
 CREATE TABLE employee(
 eID VARCHAR (15) NOT NULL,
 ename VARCHAR(20) NOT NULL,
@@ -226,9 +172,6 @@ ephoneNumber VARCHAR(20) NOT NULL,
 eemail VARCHAR (60) NOT NULL,
 CONSTRAINT employee_pk PRIMARY KEY (eID)
 );
-
-
-
 
 CREATE TABLE technician(
 eID VARCHAR (15) NOT NULL,
@@ -240,15 +183,11 @@ FOREIGN KEY (eID)
 REFERENCES employee (eID)
 );
 
-
-
-
 CREATE TABLE certification(
 certID VARCHAR (15) NOT NULL,
 certName VARCHAR (60) NOT NULL,
 CONSTRAINT certification_pk PRIMARY KEY (certID)
 );
-
 
 CREATE TABLE certificate_instance(
 Date VARCHAR (10) NOT NULL,
@@ -258,7 +197,6 @@ CONSTRAINT instance_certID FOREIGN KEY (certID) REFERENCES certification (certID
 CONSTRAINT instance_edID FOREIGN KEY (eID) REFERENCES employee (eID),
 CONSTRAINT certificate_instance_pk PRIMARY KEY (certID, eID)
 );
-
 
 CREATE TABLE mechanic(
 eID VARCHAR(15)  NOT NULL,
