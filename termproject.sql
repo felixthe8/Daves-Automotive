@@ -355,19 +355,18 @@ INSERT INTO existing_c(customerID, lastVisit)
        	('06', '2016-11-04'),
        	('07', '2016-10-30'),
        	('08', '2016-05-20');
-
-
-INSERT INTO prospect(customerID, refferal, viableProspect, isNowExisting)
-	VALUES   
-       	('10', '01', true, false),
-       	('11', '02', true, false),
-       	('09', '01', false, false);
 	
-INSERT INTO prospect(customerID, refferal, viableProspect, isNowExisting)
+INSERT INTO prospect(customerID, refferal, lastContactDate, isNowExisting)
 	VALUES   
-       	('11', '01', true, false),
-       	('12', '02', true, false),
-        ('13', '01', false, false);
+       	('10', '01', '2015-12-20', false),
+       	('11', '02', '2016-03-05', false),
+       	('09', '01', '2016-03-05', false);
+	
+INSERT INTO prospect(customerID, refferal, lastContactDate, isNowExisting)
+	VALUES   
+       	('11', '01', '2015-11-20', false),
+       	('12', '02', '2015-01-05', false),
+        ('13', '01', '2016-01-04', false);
 
 
 INSERT INTO steady(customerID)
@@ -477,7 +476,8 @@ INSERT INTO contact(customerID, method_c, date_c)
        	('11', 'Email', '2013-10-18'),
        	('12', 'Phone', '2015-01-05'),
        	('12', 'Phone', '2014-03-05'),
-        ('12', 'Email', '2013-03-05');
+        ('12', 'Email', '2013-03-05')
+	('13', 'Email', '2015-11-20');
 
 
 INSERT INTO employee VALUES ('576027904033696', 'Marc Summers', '1245 Park Ave, Long Beach CA', '+1-562-333-8918','marc.summers@autoshop.com');
