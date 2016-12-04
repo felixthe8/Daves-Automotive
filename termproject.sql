@@ -689,22 +689,28 @@ INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
     SELECT "Prospect", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM prospect
         NATURAL JOIN customer;
-/*2*/
-SELECT customerFirstName, customerLastName, orderDate AS "Transaction", laborHours * 40 AS "Total" 
+
+/*2. For each service visit, list the total cost to the customer for that visit.
+    
+    How much the customer is charged is derived value, here we charge them 40$ for every hour of
+    labor.
+*/
+SELECT customerFirstName, customerLastName, orderDate AS "Transaction Date", laborHours * 40 AS "Total" 
 FROM customer
 INNER JOIN car USING (customerID)
 INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber);
-GROUP BY customerFirstName, customerLastName, orderNumber AS "Transaction";
 
 
-/*3*/
+
+/*3. List the top three customers in terms of their net spending for the past 
+     two years, and the total that they have spent in that period.*/
 SELECT customerFirstName, customerLastName, SUM(laborHours * 40) AS "Total" 
 FROM customer
 INNER JOIN car using (customerID)
 INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber)
-WHERE orderDate BETWEEN '2014-1-1' AND '2016-12-31'
+WHERE orderDate BETWEEN '2015-1-1' AND '2016-12-31'
 GROUP BY customerFirstName, customerLastName
 ORDER BY Total desc
 limit 3;
@@ -716,6 +722,7 @@ INNER JOIN mechanic USING (eID)
 INNER JOIN skill USING (eID)
 GROUP BY ename
 HAVING COUNT(skillName) >= 3;
+
 
 /*5*/
 /*List the mechanics who have 3 or more skills in common */
@@ -780,7 +787,9 @@ WHERE model = 'Ford';
 
 /*7. Find all of those mechanics who have one or more maintenance items that they lacked one or more of the necessary skills.*/
 
-/*8*/
+/*8. List the customers, sorted by the number of loyalty points that they have, from largest to smallest.
+
+    Derived value: Every customer gets 1/4 of a reward point for every 1$ spent. */
 SELECT customerFirstName, customerLastName, SUM(laborHours * 40 *0.25) AS "Royalty"
 FROM customer
 INNER JOIN car using (customerID)
@@ -789,7 +798,9 @@ INNER JOIN orderLine USING (orderNumber)
 GROUP BY customerFirstName, customerLastName
 ORDER BY Royalty desc;
 
-/*9. The premier customers and the difference between what they have paid in the past year, versus the services that they actually used during that same time.  List from the customers with the largest difference to the smallest.*/
+/*9. The premier customers and the difference between what they have paid in the 
+past year, versus the services that they actually used during that same time.  
+List from the customers with the largest difference to the smallest.*/
 
 /*10.	Report on the steady customers based on the net profit that we have 
 made from them over the past year, and the dollar amount of that profit, in 
@@ -848,7 +859,7 @@ SELECT skillName FROM skill
 ORDER BY skillName ASC  LIMIT 3;
 
 
-/*15. SYNTAX ERROR? List the employees who are service techs and mechanics*/
+/*15. List the employees who are service techs and mechanics*/
 select ename from employee
 inner join technician using (eID)
 where ename in (
@@ -859,7 +870,21 @@ inner join mechanic using (eID));
 /*16. Four additional queries that you make up yourselves. One query per person.  
       Feel free to create additional views to support these queries if you so 
       desire.*/
- 
+        /* 1 of 4 additional query. mechanics that aren't technician*/
+        SELECT ename from employee
+        INNER JOIN mechanic USING (eID)
+        WHERE mechanic.eID NOT IN
+        (SELECT eID from technician );
+
+
+        /*2 of 4 additional query Find the most popular certificate among the mechanics*/
+        SELECT DISTINCT certName , certID from certification
+        INNER JOIN certificate_instance USING (certID)
+        WHERE certificate_instance.certID = ( SELECT certID FROM certificate_instance 
+                        GROUP BY certID
+                        ORDER BY COUNT(*) DESC 
+                        LIMIT 1);
+
 
 
 /*Views*/
@@ -867,15 +892,15 @@ inner join mechanic using (eID));
 customer type (prospect, steady or premier) as well as the number of years that 
 customer has been with us.*/
 CREATE VIEW customer_info AS
-SELECT "Steady", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
+SELECT "Steady" as "type", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
 	FROM steady
 	NATURAL JOIN customer
 UNION
-SELECT "Premier", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
+SELECT "Premier" as "type", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
 	FROM premier
 	NATURAL JOIN customer
 UNION
-SELECT "Prospect", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
+SELECT "Prospect" as "type", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
 	FROM prospect
 	NATURAL JOIN customer;
 GRANT SELECT ON customer_info TO public;
@@ -900,12 +925,16 @@ UNION
 	NATURAL JOIN customer;
 GRANT SELECT ON customer_address_v TO public;
 
+select * from customer_address_v;
+
 /*3. Mechanic_Mentor_v - reports all of the mentor/mentee relationships, sorted by the name of the mentor, thne the mentee.*/
 CREATE VIEW mechanic_mentorship_v AS
 SELECT  DISTINCT (m1.eID) AS 'Student ID' , (SELECT ename from employee where m1.eID = employee.eID) AS 'Student Name' , (m2.mentorID) AS 'Mentor ID', (SELECT ename from employee where m2.mentorID = employee.eID) AS 'Mentor Name' from employee
 JOIN mentorship m1 on employee.eID = m1.eID
 JOIN mentorship m2 on employee.eID = m2.eID
 ORDER BY (SELECT ename from employee where m2.mentorID = employee.eID), (SELECT ename from employee where m1.eID = employee.eID);
+
+select * from mechanic_mentorship_v;
 
 /* 5 5.	Prospective_resurrection_v – List all of the prospective customers 
 who have had three or more contacts, and for whom the most recent contact 
@@ -921,19 +950,6 @@ SELECT customerFirstName, customerLastName
     HAVING COUNT(customerID) >= 3;
 GRANT SELECT ON prospect_v TO public;
 
+select * from prospect_v;
 
-/* 1 of 4 additional query. mechanics that aren't technician*/
-SELECT ename from employee
-INNER JOIN mechanic USING (eID)
-WHERE mechanic.eID NOT IN
-(SELECT eID from technician );
-
-
-/*2 of 4 additional query Find the most popular certificate among the mechanics*/
-SELECT DISTINCT certName , certID from certification
-INNER JOIN certificate_instance USING (certID)
-WHERE certificate_instance.certID = ( SELECT certID FROM certificate_instance 
-                GROUP BY certID
-                ORDER BY COUNT(*) DESC 
-                LIMIT 1);
-                
+select * from customer;
