@@ -21,7 +21,7 @@ CREATE TABLE existing_c(
 CREATE TABLE prospect(
     customerID              VARCHAR(20) NOT NULL,
     refferal                VARCHAR(20) NOT NULL,
-    viableProspect          BOOLEAN,
+    lastContactDate         DATE,
     isNowExisting           BOOLEAN,
     CONSTRAINT prospect_pk PRIMARY KEY (customerID, refferal),
     CONSTRAINT prospect_customer_fk
