@@ -562,7 +562,18 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
         ('00008', '1GKDT13S342329642', '2016-12-10', '809898239915394', '33610'),
         ('00009', '1GKDT13S342329642', '2016-12-09', '809898239915394', '33610'),
         ('00010', '1GKDT13S342329642', '2016-12-11', '809898239915394', '33610');
-        
+        	
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
+        ('00001','Brake Change', '1.5', '578090506011182'),
+       	('00002','Valve adjustment', '4', '578090506011182'),
+       	('00003','Body Detailing', '0.5', '809898239915394'),
+       	('00004','Electrical Wiring', '14', '809898239915394'),
+       	('00005','Brake Change', '1.5', '544324531428223'),
+       	('00006','Wheel Alignment', '2','544324531428223'),
+       	('00007','Tire Change', '0.25', '451851475207895');
+
+
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
         ('00008','Brake Change', '1.5', '809898239915394'),
@@ -621,25 +632,6 @@ INSERT INTO maintenanceItem(jobDescription, laborHours)
         ('check if rubber boots are cracked and need replacement', '1'),
         ('test electronics ABS', '1'),
         ('read fault codes from the Engine control unit', '0.25');
-     
-INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
-  VALUES
-        ('00001','Brake Change', '1.5', '578090506011182'),
-       	('00002','Valve adjustment', '4', '578090506011182'),
-       	('00003','Body Detailing', '0.5', '809898239915394'),
-       	('00004','Electrical Wiring', '14', '809898239915394'),
-       	('00005','Brake Change', '1.5', '544324531428223'),
-       	('00006','Wheel Alignment', '2','544324531428223'),
-       	('00007','Tire Change', '0.25', '451851475207895');
-
-
-INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
-  VALUES
-        ('00008','Brake Change', '1.5', '809898239915394'),
-       	('00009','Wheel Alignment', '2','809898239915394'),
-       	('00010','Tire Change', '0.25', '809898239915394');
-        
-
 
 /*Possible issue:  Skill name is different from what is in skill table
                    because skill names are similar to what I'm calling
