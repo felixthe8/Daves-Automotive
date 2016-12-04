@@ -732,11 +732,11 @@ ORDER BY Royalty desc;
 
 /*11. List the three services that we have performed the most in the last year 
       and how many times they were performed. */
-select workOrder.orderNumber, workOrder.orderDate, orderLine.jobDescription, count(*)
+select orderLine.jobDescription, count(orderLine.jobDescription)
 from workOrder
 inner join orderLine using (orderNumber)
 WHERE orderDate BETWEEN '2015-1-1' AND '2016-12-31'
-GROUP BY workOrder.orderNumber, workOrder.orderDate, orderLine.jobDescription
+GROUP BY  orderLine.jobDescription
 order by  orderLine.jobDescription asc
 limit 3;
 
