@@ -712,7 +712,7 @@ limit 3;
 
 /*5*/
 /*List the mechanics who have 3 or more skills in common */
-SELECT (S1.eID) AS 'Person 1 ID', (Select ename from employee where S2.eID = employee.eID)as 'person 1 name' , (S2.eID) AS 'Person 2 ID' , ename as 'person 2 name', count(employee.eID) as 'Common Skills' FROM employee
+SELECT (S1.eID) AS 'Person 1 ID', (Select ename from employee where S1.eID = employee.eID)as 'person 1 name' , (S2.eID) AS 'Person 2 ID' , ename as 'person 2 name', count(employee.eID) as 'Common Skills' FROM employee
 JOIN skill S1 on employee.eID = S1.eID
 JOIN skill S2 on S1.eID != S2.eID
 and S1.SKILLNAME = S2.SKILLNAME
