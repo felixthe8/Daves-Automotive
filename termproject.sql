@@ -443,21 +443,21 @@ INSERT INTO carMiles(carVin, miles, carMileDate)
 
 INSERT INTO notifications(customerID, carVin, serviceNeeded)
 	VALUES
-       	('01', '1GBL7D1YXCV167188', 'Oil Change'),
-       	('03', '1FABP40A1JF315303', 'Spark Plug-Oil Change'),
-       	('06', '1FTNS1EW6BDB42500', 'Oil Change-Brakes'),
+       	('01', '1GBL7D1YXCV167188', 'Body Detailing'),
+       	('03', '1FABP40A1JF315303', 'Spark Plug-Body Detailing'),
+       	('06', '1FTNS1EW6BDB42500', 'Body Detailing-Brakes'),
        	('07', 'JHLRD18691C097003', 'Brakes-Spark Plugs'),
-       	('04', '5KKHAXDV1FPG36118', 'Oil Change');
+       	('04', '5KKHAXDV1FPG36118', 'Body Detailing');
 
 INSERT INTO special(sName, coupon)
 	VALUE
-       	('Oil Change', '1A'),
+       	('Body Detailing', '1A'),
        	('$50 off', '2A'),
        	('$100 off', '2B');
 
 INSERT INTO prospectSpecial(customerID, sName, numberOfSpecials)
 	VALUES
-       	('10', 'Oil Change', 2),
+       	('10', 'Body Detailing', 2),
        	('10', '$50 off', 2);
 
 INSERT INTO contact(customerID, method_c, date_c)
@@ -565,37 +565,26 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
         
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
-        ('00001','Tire rotation', '1.5', '578090506011182'),
-       	('00002','Valve adjustment', '4', '578090506011182'),
-       	('00003','Oil change', '0.5', '809898239915394'),
-       	('00004','Transmission rebuild', '14', '809898239915394'),
-       	('00005','Break pads', '1.5', '544324531428223'),
-       	('00006','check/replace fuel filters', '2','544324531428223'),
-       	('00007','inspect or replace windshield wipers', '0.25', '451851475207895');
-
-
-INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
-  VALUES
-        ('00008','Break pads', '1.5', '809898239915394'),
-       	('00009','check/replace fuel filters', '2','809898239915394'),
-       	('00010','inspect or replace windshield wipers', '0.25', '809898239915394');
+        ('00008','Brake Change', '1.5', '809898239915394'),
+       	('00009','Wheel Alignment', '2','809898239915394'),
+       	('00010','Tire Change', '0.25', '809898239915394');
        
 INSERT INTO task(orderNumber, maintenanceItem, mechanicsAssigned)
   VALUES
-       	('00001', 'Tire rotation', '576027904033696 925812068577979'),
+       	('00001', 'Brake Change', '576027904033696 925812068577979'),
        	('00002',  'Valve adjustment', '925812068577979 451851475207895 809898239915394'),
-       	('00003', 'Oil change', '312476314438384'),
+       	('00003', 'Body Detailing', '312476314438384'),
        	('00004', 'check or flush brake fluid','312476314438384 578090506011182'),
        	('00005', 'AC refill', '578090506011182'),
-       	('00006', 'Oil change', '809898239915394'),
-       	('00007', 'Break pads', '451851475207895');
+       	('00006', 'Body Detailing', '809898239915394'),
+       	('00007', 'Brake Change', '451851475207895');
 
 
 INSERT INTO task(orderNumber, maintenanceItem, mechanicsAssigned)
   VALUES
-        ('00008', 'Break pads', '451851475207895'),
-        ('00009', 'check/replace fuel filters', '451851475207895'),
-        ('00010', 'inspect or replace windshield wipers', '451851475207895');
+        ('00008', 'Brake Change', '451851475207895'),
+        ('00009', 'Wheel Alignment', '451851475207895'),
+        ('00010', 'Tire Change', '451851475207895');
 
 
                 
@@ -611,13 +600,13 @@ INSERT INTO maintSchedule(carVin, nextMaintDate)
         
 INSERT INTO maintenanceItem(jobDescription, laborHours)
   VALUES
-        ('Tire rotation', '1.5'),
+        ('Brake Change', '1.5'),
        	('Valve adjustment', '4'),
-       	('Oil change', '0.5'),
-       	('Transmission rebuild', '14'),
-       	('Break pads', '1.5'),
-       	('check/replace fuel filters', '2'),
-       	('inspect or replace windshield wipers', '0.25'),
+       	('Body Detailing', '0.5'),
+       	('Electrical Wiring', '14'),
+       	('Brake Change', '1.5'),
+       	('Wheel Alignment', '2'),
+       	('Tire Change', '0.25'),
         ('Tire balancing', '2'),
         ('Wheel alignment', '1.5'),
         ('check or flush brake fluid', '0.25'),
@@ -633,19 +622,38 @@ INSERT INTO maintenanceItem(jobDescription, laborHours)
         ('test electronics ABS', '1'),
         ('read fault codes from the Engine control unit', '0.25');
      
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
+        ('00001','Brake Change', '1.5', '578090506011182'),
+       	('00002','Valve adjustment', '4', '578090506011182'),
+       	('00003','Body Detailing', '0.5', '809898239915394'),
+       	('00004','Electrical Wiring', '14', '809898239915394'),
+       	('00005','Brake Change', '1.5', '544324531428223'),
+       	('00006','Wheel Alignment', '2','544324531428223'),
+       	('00007','Tire Change', '0.25', '451851475207895');
+
+
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
+        ('00008','Brake Change', '1.5', '809898239915394'),
+       	('00009','Wheel Alignment', '2','809898239915394'),
+       	('00010','Tire Change', '0.25', '809898239915394');
+        
+
+
 /*Possible issue:  Skill name is different from what is in skill table
                    because skill names are similar to what I'm calling
                    jobDiscriptions.  Rename skills to something like a
                    job catagory - making sure to differ from qualification.'*/
 INSERT INTO serviceSkill(qualification, eID, skillName, orderNumber, jobDescription, laborHours)
   VALUES
-        ('Level 1','578090506011182', 'Brake Change', '00001', 'Tire rotation', '1.5'),
+        ('Level 1','578090506011182', 'Brake Change', '00001', 'Brake Change', '1.5'),
        	('Level 3','578090506011182', 'Body Detailing', '00002', 'Valve adjustment', '4'),
-       	('Level 1','578090506011182', 'Electrical Wiring', '00003', 'Oil change', '0.5'),
-       	('Level 5','578090506011182', 'Interior Cleaning', '00004', 'Transmission rebuild', '14'),
-       	('Level 2','809898239915394', 'Decals', '00005', 'Break pads', '1.5'),
-       	('Level 2','451851475207895', 'Interior Cleaning', '00006', 'check/replace fuel filters','2'),
-       	('Level 1','578090506011182', 'Interior Cleaning', '00007', 'inspect or replace windshield wipers', '0.25');
+       	('Level 1','578090506011182', 'Electrical Wiring', '00003', 'Body Detailing', '0.5'),
+       	('Level 5','578090506011182', 'Interior Cleaning', '00004', 'Electrical Wiring', '14'),
+       	('Level 2','809898239915394', 'Decals', '00005', 'Brake Change', '1.5'),
+       	('Level 2','451851475207895', 'Interior Cleaning', '00006', 'Wheel Alignment','2'),
+       	('Level 1','578090506011182', 'Interior Cleaning', '00007', 'Tire Change', '0.25');
         
 INSERT INTO package(discount, model, make, mileage, pkgname)
   VALUES
@@ -657,11 +665,11 @@ INSERT INTO package(discount, model, make, mileage, pkgname)
         
 INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
   VALUES
-        ('Tire rotation', '1.5', 'Ford Under CR-V 25k'),
+        ('Brake Change', '1.5', 'Ford Under CR-V 25k'),
         ('Valve adjustment', '4', 'HONDA Civic Under 25k'),
-        ('Oil change', '0.5', 'MITSUBISHI Outlander Under 25k'),
-        ('Transmission rebuild', '14', 'SUZUKI S-Cross Under 25k'),
-       	('Break pads', '1.5', 'TOYOTA Prius Under 25k');
+        ('Body Detailing', '0.5', 'MITSUBISHI Outlander Under 25k'),
+        ('Electrical Wiring', '14', 'SUZUKI S-Cross Under 25k'),
+       	('Brake Change', '1.5', 'TOYOTA Prius Under 25k');
 
 
 /*John DML End*/
@@ -670,15 +678,15 @@ INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
 /*Queries*/
 /*1. List the customers.  For each customer, indicate which category he or she 
      fall into, and his or her contact information.*/
-    SELECT "Steady" AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Steady", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM steady
         NATURAL JOIN customer
         UNION
-    SELECT "Premier"  AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Premier", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM premier
         NATURAL JOIN customer
     UNION
-    SELECT "Prospect"  AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Prospect", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM prospect
         NATURAL JOIN customer;
 
@@ -751,13 +759,13 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
         
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
-        ('00001','Tire rotation', '1.5', '578090506011182'),
+        ('00001','Brake Change', '1.5', '578090506011182'),
        	('00002','Valve adjustment', '4', '578090506011182'),
-       	('00003','Oil change', '0.5', '809898239915394'),
-       	('00004','Transmission rebuild', '14', '809898239915394'),
-       	('00005','Break pads', '1.5', '544324531428223'),
-       	('00006','check/replace fuel filters', '2','544324531428223'),
-       	('00007','inspect or replace windshield wipers', '0.25', '451851475207895');
+       	('00003','Body Detailing', '0.5', '809898239915394'),
+       	('00004','Electrical Wiring', '14', '809898239915394'),
+       	('00005','Brake Change', '1.5', '544324531428223'),
+       	('00006','Wheel Alignment', '2','544324531428223'),
+       	('00007','Tire Change', '0.25', '451851475207895');
 
 Attempting to apply a package to VIN 809898239915394 as it has under 25k
 SELECT orderLine.orderNumber, (select carVin from workOrder where recordedMilage < 25000) as 'Applicable VINs',  FROM package
@@ -772,7 +780,7 @@ ADD maintPkg VARCHAR 500; /*maintPkg will be a comma delimited list of maintance
 
 /* Is this how to update pack table without changing other data or adding nulls? */
 UPDATE package 
-SET maintPkg = "Break pads,Tire balancing,Wheel alignment"
+SET maintPkg = "Brake Change,Tire balancing,Wheel alignment"
 WHERE model = 'Ford';
 
 
