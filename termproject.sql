@@ -726,7 +726,57 @@ and S1.SKILLNAME = S2.SKILLNAME
 GROUP BY (S1.eID) , (S2.eID)
 HAVING COUNT(employee.eID) >= 3;
 
-/*6. For each maintenance package, list the total cost of the maintenance package, as well as a list of all of the maintenance items within that package.*/
+/*6. For each maintenance package, list the total cost of the maintenance package, as well as a list of all of the maintenance items within that package.
+
+Design issue:  packages don't include mainatance items, but rather are a blanket discount to any number of items for a particular make and modle if said 
+make and modle has the required milage. We could redesign package, or we could create an order with a package "applied" and display discounts.
+
+Relevant tables:
+INSERT INTO package(discount, model, make, mileage, pkgname)
+  VALUES
+        ('0.65','Ford', 'CR-V', '25000', 'Ford Under CR-V 25k', '),
+        ('0.75','HONDA', 'Civic', '25000', 'HONDA Civic Under 25k'),
+        ('0.85','MITSUBISHI', 'Outlander', '25000', 'MITSUBISHI Outlander Under 25k'),
+        ('0.95','SUZUKI', 'S-Cross', '25000', 'SUZUKI S-Cross Under 25k'),
+       	('0.95','TOYOTA', 'Prius', '25000', 'TOYOTA Prius Under 25k');
+        
+INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
+  VALUES
+       	('00001', '1GBL7D1YXCV167188', '2016-12-18', '576027904033696', '81148'),
+       	('00002', 'SALVV2BGXCH726816', '2016-12-21', '925812068577979', '107286'),
+       	('00003', '1FUBGDDR19LA06952', '2016-12-28', '312476314438384', '97686'),
+       	('00004', '5KKHAXDV1FPG36118', '2016-12-18', '312476314438384', '76258'),
+       	('00005', 'JKAKXTCC4WA040493', '2016-12-08', '578090506011182', '113184'),
+       	('00006', '1GKDT13S342329642', '2016-12-09', '809898239915394', '33610'),
+       	('00007', '1FTNS1EW6BDB42500', '2016-12-30', '451851475207895', '101813');
+        
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
+        ('00001','Tire rotation', '1.5', '578090506011182'),
+       	('00002','Valve adjustment', '4', '578090506011182'),
+       	('00003','Oil change', '0.5', '809898239915394'),
+       	('00004','Transmission rebuild', '14', '809898239915394'),
+       	('00005','Break pads', '1.5', '544324531428223'),
+       	('00006','check/replace fuel filters', '2','544324531428223'),
+       	('00007','inspect or replace windshield wipers', '0.25', '451851475207895');
+
+Attempting to apply a package to VIN 809898239915394 as it has under 25k
+SELECT orderLine.orderNumber, (select carVin from workOrder where recordedMilage < 25000) as 'Applicable VINs',  FROM package
+hmmm... nah F that. redesign is the way to go.  This method could work, but we would have to derive the make and modle from VIN numbers.
+redesign is the way to go.  Will simply add colum with specific maint items.
+*/
+
+/*adding new column to store maintItems*/
+ALTER TABLE package
+ADD maintPkg VARCHAR 500; /*maintPkg will be a comma delimited list of maintance items, which are the PK for maintenanceItem table, and get be used to find cost.*/
+
+
+/* Is this how to update pack table without changing other data or adding nulls? */
+UPDATE package 
+SET maintPkg = "Break pads,Tire balancing,Wheel alignment"
+WHERE model = 'Ford';
+
+
 
 /*7. Find all of those mechanics who have one or more maintenance items that they lacked one or more of the necessary skills.*/
 
