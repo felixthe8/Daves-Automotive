@@ -818,6 +818,7 @@ GRANT SELECT ON customer_address_v TO public;
 who have had three or more contacts, and for whom the most recent contact 
 was more than a year ago.  They might be ripe for another attempt.
 */
+CREATE VIEW prospect_v AS
 SELECT customerFirstName, customerLastName
     FROM customer    
     NATURAL JOIN prospect
@@ -825,6 +826,7 @@ SELECT customerFirstName, customerLastName
     WHERE DATEDIFF(CURDATE(), lastContactDate) > 365
     GROUP BY customerID
     HAVING COUNT(customerID) >= 3;
+GRANT SELECT ON prospect_v TO public;
 
 
 /* 1 of 4 additional query. mechanics that aren't technician*/
