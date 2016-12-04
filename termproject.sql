@@ -709,15 +709,13 @@ GROUP BY customerFirstName, customerLastName
 ORDER BY Total desc
 limit 3;
 
-/*4. Find all of the mechanics who have three or more skills.
-*/
+/*4. Find all of the mechanics who have three or more skills.*/
 SELECT ename, COUNT(skillName) AS "Number of Skills"
 FROM employee
 INNER JOIN mechanic USING (eID)
 INNER JOIN skill USING (eID)
 GROUP BY ename
 HAVING COUNT(skillName) >= 3;
-
 
 /*5*/
 /*List the mechanics who have 3 or more skills in common */
@@ -728,6 +726,9 @@ and S1.SKILLNAME = S2.SKILLNAME
 GROUP BY (S1.eID) , (S2.eID)
 HAVING COUNT(employee.eID) >= 3;
 
+/*6. For each maintenance package, list the total cost of the maintenance package, as well as a list of all of the maintenance items within that package.*/
+
+/*7. Find all of those mechanics who have one or more maintenance items that they lacked one or more of the necessary skills.*/
 
 /*8*/
 SELECT customerFirstName, customerLastName, SUM(laborHours * 40 *0.25) AS "Royalty"
@@ -737,6 +738,8 @@ INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber)
 GROUP BY customerFirstName, customerLastName
 ORDER BY Royalty desc;
+
+/*9. The premier customers and the difference between what they have paid in the past year, versus the services that they actually used during that same time.  List from the customers with the largest difference to the smallest.*/
 
 /*10.	Report on the steady customers based on the net profit that we have 
 made from them over the past year, and the dollar amount of that profit, in 
