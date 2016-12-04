@@ -814,7 +814,17 @@ UNION
 	NATURAL JOIN customer;
 GRANT SELECT ON customer_address_v TO public;
 
-
+/* 5 5.	Prospective_resurrection_v – List all of the prospective customers 
+who have had three or more contacts, and for whom the most recent contact 
+was more than a year ago.  They might be ripe for another attempt.
+*/
+SELECT customerFirstName, customerLastName
+    FROM customer    
+    NATURAL JOIN prospect
+    NATURAL JOIN contact
+    WHERE DATEDIFF(CURDATE(), lastContactDate) > 365
+    GROUP BY customerID
+    HAVING COUNT(customerID) >= 3;
 
 
 /* 1 of 4 additional query. mechanics that aren't technician*/
