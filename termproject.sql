@@ -250,12 +250,6 @@ CONSTRAINT certification_pk PRIMARY KEY (certID)
 );
 
 
-
-
-
-
-
-
 CREATE TABLE certificate_instance(
 Date VARCHAR (10) NOT NULL,
 eID VARCHAR (15) NOT NULL,
@@ -266,17 +260,12 @@ CONSTRAINT certificate_instance_pk PRIMARY KEY (certID, eID)
 );
 
 
-
-
 CREATE TABLE mechanic(
 eID VARCHAR(15)  NOT NULL,
 DateStarted VARCHAR (10)NOT NULL,
 CONSTRAINT eID_fk FOREIGN KEY (eID) REFERENCES employee (eID),
 CONSTRAINT mechanic_pk PRIMARY KEY (eID)
 );
-
-
-
 
 CREATE TABLE mentorship(
 eID VARCHAR (15) NOT NULL,
@@ -288,9 +277,6 @@ CONSTRAINT mentorID_fk FOREIGN KEY (mentorID) REFERENCES mechanic(eID),
 CONSTRAINT mentorship_pk PRIMARY KEY (eID, mentorID)
 );
 
-
-
-
 CREATE TABLE skill(
 eID VARCHAR (15) NOT NULL,
 skillName VARCHAR (40) NOT NULL,
@@ -298,9 +284,6 @@ skillDate VARCHAR (15) NOT NULL,
 CONSTRAINT eIDskill_fk FOREIGN KEY (eID) REFERENCES mechanic (eID),
 CONSTRAINT skill_pk PRIMARY KEY (eID, skillName)
 );
-
-
-
 
 CREATE TABLE workOrder (
  /*changed orderDate type to date from VARCHAR*/
@@ -313,9 +296,6 @@ CREATE TABLE workOrder (
   CONSTRAINT order_car_fk FOREIGN KEY (carVin) REFERENCES car (carVin),
   CONSTRAINT order_employee_fk FOREIGN KEY (eID) REFERENCES employee (eID)
 );
-
-
-
 
 CREATE TABLE task (
   orderNumber varchar(20) NOT NULL,
@@ -416,20 +396,6 @@ INSERT INTO customer (customerID, customerFirstName, customerLastName,
        	('11', 'Sarah', 'Cats', '(714)023-8710', 'cats@gmail.com', 2015);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 INSERT INTO existing_c(customerID, lastVisit)
 	VALUES
        	('01', '2016-04-04'),
@@ -439,12 +405,6 @@ INSERT INTO existing_c(customerID, lastVisit)
        	('05', '2016-01-22');
 
 
-
-
-
-
-
-
 INSERT INTO existing_c(customerID, lastVisit)
 	VALUES
        	('06', '2016-11-04'),
@@ -452,23 +412,11 @@ INSERT INTO existing_c(customerID, lastVisit)
        	('08', '2016-05-20');
 
 
-
-
-
-
-
-
 INSERT INTO prospect(customerID, refferal, viableProspect, isNowExisting)
 	VALUES   
        	('10', '01', true, false),
        	('11', '02', true, false),
        	('09', '01', false, false);
-
-
-
-
-
-
 
 
 INSERT INTO steady(customerID)
@@ -479,33 +427,11 @@ INSERT INTO steady(customerID)
        	('04'),
        	('05');
 
-
-
-
-
-
-
-
 INSERT INTO premier(customerID, monthlyFee)
 	VALUES
        	('06', 200),
        	('07', 220),
        	('08', 350);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO private(customerID, address, zipcode)
 	VALUES
@@ -515,25 +441,11 @@ INSERT INTO private(customerID, address, zipcode)
        	('05', '28 Flower street', '92202'),
        	('06', '16 Cherry Lane', '92202');
 
-
-
-
-
-
-
-
 INSERT INTO corporate(customerID)
 	VALUES
        	('03'),
        	('07'),
        	('08');
-
-
-
-
-
-
-
 
 INSERT INTO address(customerID, aName, address, zipcode)
 	VALUES
@@ -542,21 +454,6 @@ INSERT INTO address(customerID, aName, address, zipcode)
        	('07', 'Main Office', '125 Fruit st', '92345'),
        	('07', 'Downtown', '45 Fowler', '92620'),
        	('08', 'Headquaters', '12 Abby st', '92445');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO appointment(customerID, aDate)
 	VALUES
@@ -567,21 +464,6 @@ INSERT INTO appointment(customerID, aDate)
        	('09', '2016-12-08'),
        	('08', '2016-12-09'),
        	('04', '2016-12-30');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO car(customerID, carVin, carModle, carMake, carYear, isAccidental)
 	VALUES
@@ -596,13 +478,6 @@ INSERT INTO car(customerID, carVin, carModle, carMake, carYear, isAccidental)
        	('07', 'JHLRD18691C097003', 'Tacoma', 'Toyota', '2009', false),
        	('08', '1FBNE31S04HB51098', 'Camero', 'Chevy', '2010', false);
 
-
-
-
-
-
-
-
 INSERT INTO carMiles(carVin, miles, carMileDate)
 	VALUES
        	('1GBL7D1YXCV167188', 84732, '2016-03-18'),
@@ -616,13 +491,6 @@ INSERT INTO carMiles(carVin, miles, carMileDate)
        	('JHLRD18691C097003', 46301, '2016-10-30'),
        	('1FBNE31S04HB51098', 10210, '2016-05-20');
 
-
-
-
-
-
-
-
 INSERT INTO notifications(customerID, carVin, serviceNeeded)
 	VALUES
        	('01', '1GBL7D1YXCV167188', 'Oil Change'),
@@ -631,37 +499,16 @@ INSERT INTO notifications(customerID, carVin, serviceNeeded)
        	('07', 'JHLRD18691C097003', 'Brakes-Spark Plugs'),
        	('04', '5KKHAXDV1FPG36118', 'Oil Change');
 
-
-
-
-
-
-
-
 INSERT INTO special(sName, coupon)
 	VALUE
        	('Oil Change', '1A'),
        	('$50 off', '2A'),
        	('$100 off', '2B');
 
-
-
-
-
-
-
-
 INSERT INTO prospectSpecial(customerID, sName, numberOfSpecials)
 	VALUES
        	('10', 'Oil Change', 2),
        	('10', '$50 off', 2);
-
-
-
-
-
-
-
 
 INSERT INTO contact(customerID, method_c, date_c)
 	VALUE
@@ -673,16 +520,6 @@ INSERT INTO contact(customerID, method_c, date_c)
        	('11', 'Email', '2016-03-05');
 
 
-
-
-
-
-
-
-
-
-
-
 INSERT INTO employee VALUES ('576027904033696', 'Marc Summers', '1245 Park Ave, Long Beach CA', '+1-562-333-8918','marc.summers@autoshop.com');
 INSERT INTO employee VALUES ('925812068577979', 'Ashton Kutcher', '3146 Main St, Irvine CA', '+1-717-615-2558', 'ashton.kutcher@autoshop.com');
 INSERT INTO employee VALUES ('312476314438384', 'Rihanna', '77891 Flower Rd, Carson CA', '+619-761-1624','rihanna@autoshop.com');
@@ -691,49 +528,21 @@ INSERT INTO employee VALUES ('809898239915394', 'Dwayne Johnson', '987 Denver Dr
 INSERT INTO employee VALUES ('544324531428223', 'Jen Nee', '231 2nd St , Westminster CA', '+562-682-4476', 'jen.nee@autoshop.com');
 INSERT INTO employee VALUES ('451851475207895', 'Brad Pitt', '423 Cookie Way, Lakewood CA', '+310-218-7413','brad.pitt@gmail.com');
 
-
-
-
-
-
-
-
 INSERT INTO technician VALUES ('576027904033696' , True);
 INSERT INTO technician VALUES ('925812068577979', True);
 INSERT INTO technician VALUES ('312476314438384', False);
 INSERT INTO technician VALUES ('578090506011182' , False);
-
-
-
-
-
-
-
 
 INSERT INTO mechanic VALUES ('578090506011182', '4/3/1996');
 INSERT INTO mechanic VALUES ('809898239915394' , '1/25/2001');
 INSERT INTO mechanic VALUES ('544324531428223', '8/23/2013');
 INSERT INTO mechanic VALUES ('451851475207895' , '11/7/2014');
 
-
-
-
-
-
-
-
 INSERT INTO certification VALUES ('224679848009249' , 'Smog Check Certificate');
 INSERT INTO certification VALUES ('059485942439364' , 'Engine Swap Certificate');
 INSERT INTO certification VALUES ('553475559524378' , 'Head Light Restore Certificate');
 INSERT INTO certification VALUES ('609648661240830' , 'Fabricator Certificate');
 INSERT INTO certification VALUES ('874928552724630' , 'Transmission Swap Certificate');
-
-
-
-
-
-
-
 
 INSERT INTO certificate_instance VALUES ('12/12/2004' , '578090506011182','059485942439364'  );
 INSERT INTO certificate_instance VALUES ('8/23/2000' , '578090506011182','224679848009249'  );
@@ -744,25 +553,11 @@ INSERT INTO certificate_instance VALUES ('1/27/2015' , '544324531428223','553475
 INSERT INTO certificate_instance VALUES ('1/23/2014' , '544324531428223','059485942439364'  );
 INSERT INTO certificate_instance VALUES ('1/5/2016' , '451851475207895', '553475559524378'  );
 
-
-
-
-
-
-
-
 INSERT INTO mentorship VALUES ('578090506011182' , '809898239915394' , '5/5/2015' , '');
 INSERT INTO mentorship VALUES ('809898239915394' , '451851475207895' , '10/8/2014', '12/4/2014' );
 INSERT INTO mentorship VALUES ('544324531428223' , '578090506011182' , '9/12/2014' , '8/7/2016');
 INSERT INTO mentorship VALUES ('809898239915394' , '544324531428223', '1/1/2016' , '3/4/2016');
 INSERT INTO mentorship VALUES ('578090506011182' , '544324531428223', '1/1/2016' , '3/4/2016');
-
-
-
-
-
-
-
 
 INSERT INTO skill VALUES ('578090506011182' , 'Brake Change', '5/23/1997');
 INSERT INTO skill VALUES ('578090506011182' , 'Body Detailing', '7/23/1998');
@@ -944,7 +739,7 @@ GROUP BY customerFirstName, customerLastName, orderNumber AS "Transaction";
 
 
 /*3*/
-SELECT customerFirstName, customerLastName, SUM(laborHours * 25) AS "Total" 
+SELECT customerFirstName, customerLastName, SUM(laborHours * 40) AS "Total" 
 FROM customer
 INNER JOIN car using (customerID)
 INNER JOIN workOrder USING (carVin)
@@ -963,8 +758,6 @@ JOIN skill S2 on S1.eID != S2.eID
 and S1.SKILLNAME = S2.SKILLNAME
 GROUP BY (S1.eID) , (S2.eID)
 HAVING COUNT(employee.eID) >= 3;
-
-
 
 
 /*8*/
