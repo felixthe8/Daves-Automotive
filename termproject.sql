@@ -565,6 +565,17 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
         
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
+        ('00001','Tire rotation', '1.5', '578090506011182'),
+       	('00002','Valve adjustment', '4', '578090506011182'),
+       	('00003','Oil change', '0.5', '809898239915394'),
+       	('00004','Transmission rebuild', '14', '809898239915394'),
+       	('00005','Break pads', '1.5', '544324531428223'),
+       	('00006','check/replace fuel filters', '2','544324531428223'),
+       	('00007','inspect or replace windshield wipers', '0.25', '451851475207895');
+
+
+INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
+  VALUES
         ('00008','Break pads', '1.5', '809898239915394'),
        	('00009','check/replace fuel filters', '2','809898239915394'),
        	('00010','inspect or replace windshield wipers', '0.25', '809898239915394');
@@ -622,25 +633,6 @@ INSERT INTO maintenanceItem(jobDescription, laborHours)
         ('test electronics ABS', '1'),
         ('read fault codes from the Engine control unit', '0.25');
      
-INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
-  VALUES
-        ('00001','Tire rotation', '1.5', '578090506011182'),
-       	('00002','Valve adjustment', '4', '578090506011182'),
-       	('00003','Oil change', '0.5', '809898239915394'),
-       	('00004','Transmission rebuild', '14', '809898239915394'),
-       	('00005','Break pads', '1.5', '544324531428223'),
-       	('00006','check/replace fuel filters', '2','544324531428223'),
-       	('00007','inspect or replace windshield wipers', '0.25', '451851475207895');
-
-
-INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
-  VALUES
-        ('00008','Break pads', '1.5', '809898239915394'),
-       	('00009','check/replace fuel filters', '2','809898239915394'),
-       	('00010','inspect or replace windshield wipers', '0.25', '809898239915394');
-        
-
-
 /*Possible issue:  Skill name is different from what is in skill table
                    because skill names are similar to what I'm calling
                    jobDiscriptions.  Rename skills to something like a
