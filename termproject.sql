@@ -958,6 +958,21 @@ ORDER BY (SELECT ename from employee where m2.mentorID = employee.eID), (SELECT 
 
 select * from mechanic_mentorship_v;
 
+/*
+4. Premier_profits_v – On a year by year basis, show the premier customer’s outlay versus what they
+would have been charged for the services which they received had they merely been steady customers.
+*/
+CREATE VIEW premier_v AS
+SELECT customerFirstName, customerLastName, SUM(laborHours * 40) AS "Cost Of Services As Steady", 
+monthlyFee *12 AS "Year To Date Payments", (SUM(laborHours * 40) - monthlyFee *12) AS "Savings"
+FROM customer
+INNER JOIN premier USING (customerID)
+INNER JOIN car USING (customerID)
+INNER JOIN workOrder USING (carVin)
+INNER JOIN orderLine USING (orderNumber)
+WHERE orderDate BETWEEN '2016-1-1' AND '2016-12-31'
+GROUP BY customerFirstName, customerLastName;
+
 /* 5 5.	Prospective_resurrection_v – List all of the prospective customers 
 who have had three or more contacts, and for whom the most recent contact 
 was more than a year ago.  They might be ripe for another attempt.
