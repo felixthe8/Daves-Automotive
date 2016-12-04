@@ -709,6 +709,15 @@ GROUP BY customerFirstName, customerLastName
 ORDER BY Total desc
 limit 3;
 
+/*4. Find all of the mechanics who have three or more skills.
+*/
+SELECT ename, COUNT(skillName) AS "Number of Skills"
+FROM employee
+INNER JOIN mechanic USING (eID)
+INNER JOIN skill USING (eID)
+GROUP BY ename
+HAVING COUNT(skillName) >= 3;
+
 
 /*5*/
 /*List the mechanics who have 3 or more skills in common */
