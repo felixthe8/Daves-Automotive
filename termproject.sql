@@ -567,6 +567,39 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
   VALUES
        	('00011', 'JHLRD18691C097003', '2016-12-18', '576027904033696', '46301'),
         ('00012', '1FBNE31S04HB51098', '2016-12-21', '925812068577979', '10210');
+
+INSERT INTO maintSchedule(carVin, nextMaintDate)
+  VALUES
+        ('1GBL7D1YXCV167188', '2017-03-18'),
+       	('SALVV2BGXCH726816', '2017-03-21'),
+       	('1FUBGDDR19LA06952', '2017-03-28'),
+       	('5KKHAXDV1FPG36118', '2017-03-18'),
+       	('JKAKXTCC4WA040493', '2017-03-08'),
+       	('1GKDT13S342329642', '2017-03-09'),
+       	('1FTNS1EW6BDB42500', '2017-03-30');
+        
+INSERT INTO maintenanceItem(jobDescription, laborHours)
+  VALUES
+        ('Brake Change', '1.5'),
+       	('Valve adjustment', '4'),
+       	('Body Detailing', '0.5'),
+       	('Electrical Wiring', '14'),
+       	('Wheel Alignment', '2'),
+       	('Tire Change', '0.25'),
+        ('Tire balancing', '2'),
+        ('Wheel alignment', '1.5'),
+        ('check or flush brake fluid', '0.25'),
+        ('check or flush transmission fluid', '0.5'),
+        ('check or flush power steering fluid', '0.5'),
+        ('check and flush engine coolant', '1'),
+        ('inspect or replace spark plugs', '2'),
+        ('inspect or replace air filter', '1'),
+        ('inspect or replace timing belt and other belts', '2'),
+        ('lubricate locks, latches, hinges', '1'),
+        ('tighten chassis nuts and bolts', '2'),
+        ('check if rubber boots are cracked and need replacement', '1'),
+        ('test electronics ABS', '1'),
+        ('read fault codes from the Engine control unit', '0.25');
         	
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
@@ -610,39 +643,7 @@ INSERT INTO task(orderNumber, maintenanceItem, mechanicsAssigned)
 
 
                 
-INSERT INTO maintSchedule(carVin, nextMaintDate)
-  VALUES
-        ('1GBL7D1YXCV167188', '2017-03-18'),
-       	('SALVV2BGXCH726816', '2017-03-21'),
-       	('1FUBGDDR19LA06952', '2017-03-28'),
-       	('5KKHAXDV1FPG36118', '2017-03-18'),
-       	('JKAKXTCC4WA040493', '2017-03-08'),
-       	('1GKDT13S342329642', '2017-03-09'),
-       	('1FTNS1EW6BDB42500', '2017-03-30');
-        
-INSERT INTO maintenanceItem(jobDescription, laborHours)
-  VALUES
-        ('Brake Change', '1.5'),
-       	('Valve adjustment', '4'),
-       	('Body Detailing', '0.5'),
-       	('Electrical Wiring', '14'),
-       	('Brake Change', '1.5'),
-       	('Wheel Alignment', '2'),
-       	('Tire Change', '0.25'),
-        ('Tire balancing', '2'),
-        ('Wheel alignment', '1.5'),
-        ('check or flush brake fluid', '0.25'),
-        ('check or flush transmission fluid', '0.5'),
-        ('check or flush power steering fluid', '0.5'),
-        ('check and flush engine coolant', '1'),
-        ('inspect or replace spark plugs', '2'),
-        ('inspect or replace air filter', '1'),
-        ('inspect or replace timing belt and other belts', '2'),
-        ('lubricate locks, latches, hinges', '1'),
-        ('tighten chassis nuts and bolts', '2'),
-        ('check if rubber boots are cracked and need replacement', '1'),
-        ('test electronics ABS', '1'),
-        ('read fault codes from the Engine control unit', '0.25');
+
 
 /*Possible issue:  Skill name is different from what is in skill table
                    because skill names are similar to what I'm calling
@@ -812,7 +813,7 @@ INNER JOIN car USING (customerID)
 INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber)
 WHERE orderDate BETWEEN '2016-1-1' AND '2016-12-31'
-GROUP BY customerFirstName, customerLastName
+GROUP BY customerFirstName, customerLastName, monthlyFee
 ORDER BY (SUM(laborHours * 40) - monthlyFee *12) DESC
 LIMIT 3;
 
@@ -971,7 +972,9 @@ INNER JOIN car USING (customerID)
 INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber)
 WHERE orderDate BETWEEN '2016-1-1' AND '2016-12-31'
-GROUP BY customerFirstName, customerLastName;
+GROUP BY customerFirstName, customerLastName, monthlyFee;
+
+SELECT * FROM premier_v;
 
 /* 5 5.	Prospective_resurrection_v – List all of the prospective customers 
 who have had three or more contacts, and for whom the most recent contact 
