@@ -908,6 +908,15 @@ inner join mechanic using (eID));
 	INNER JOIN prospect USING (customerID)
 	WHERE isNowExisting = false;
 
+        /* 4 of 4
+        All customers who own accidental cars
+        */
+        SELECT customerFirstName, customerLastName, car.`carModle`, car.`carVin`
+        FROM customer
+        INNER JOIN car USING (customerID)
+        WHERE carVin IN (SELECT carVin
+                            FROM car
+                            WHERE car.`isAccidental` = true);
 
 
 /*Views*/
