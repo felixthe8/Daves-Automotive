@@ -338,7 +338,8 @@ INSERT INTO customer (customerID, customerFirstName, customerLastName,
     	VALUES
         ('12', 'John', 'Lennon', '(949)-821-9990', 'Lennon@gmail.com', 2013),
         ('13', 'Ringo', 'Star', '(714)233-3456', 'Ringo@yahoo.com', 2012),
-        ('14', 'George', 'Harrison', '(949)113-2234', 'Harrisonj@aol.com', 2014);
+        ('14', 'George', 'Harrison', '(949)113-2234', 'Harrisonj@aol.com', 2014),
+        ('15', 'Paul', 'McCartney', '(949)-834-9950', 'Harrision@gmail.com', 2012);
 
 
 INSERT INTO existing_c(customerID, lastVisit)
@@ -354,7 +355,8 @@ INSERT INTO existing_c(customerID, lastVisit)
 	VALUES
        	('06', '2016-11-04'),
        	('07', '2016-10-30'),
-       	('08', '2016-05-20');
+       	('08', '2016-05-20'),
+        ('15', '2016-05-20');
 	
 INSERT INTO prospect(customerID, refferal, lastContactDate, isNowExisting)
 	VALUES   
@@ -369,6 +371,7 @@ INSERT INTO prospect(customerID, refferal, lastContactDate, isNowExisting)
         ('13', '01', '2016-01-04', false);
 
 
+
 INSERT INTO steady(customerID)
 	VALUES
        	('01'),
@@ -381,7 +384,8 @@ INSERT INTO premier(customerID, monthlyFee)
 	VALUES
        	('06', 20),
        	('07', 22),
-       	('08', 35);
+       	('08', 35),
+       	('15', 21);
 
 INSERT INTO private(customerID, address, zipcode)
 	VALUES
@@ -426,7 +430,8 @@ INSERT INTO car(customerID, carVin, carModle, carMake, carYear, isAccidental)
        	('05', '1GKDT13S342329642', 'Accord', 'Honda', '2008', false),
        	('06', '1FTNS1EW6BDB42500', 'Camry', 'Toyota', '2008', false),
        	('07', 'JHLRD18691C097003', 'Tacoma', 'Toyota', '2009', false),
-       	('08', '1FBNE31S04HB51098', 'Camero', 'Chevy', '2010', false);
+       	('08', '1FBNE31S04HB51098', 'Camero', 'Chevy', '2010', false),
+        ('15', '1EXNE31S04HB51123', 'Ford', 'Mustang', '2010', false);
 
 INSERT INTO carMiles(carVin, miles, carMileDate)
 	VALUES
@@ -439,7 +444,8 @@ INSERT INTO carMiles(carVin, miles, carMileDate)
        	('1GKDT13S342329642', 63357, '2016-01-06'),
        	('1FTNS1EW6BDB42500', 87091, '2016-11-04'),
        	('JHLRD18691C097003', 46301, '2016-10-30'),
-       	('1FBNE31S04HB51098', 10210, '2016-05-20');
+       	('1FBNE31S04HB51098', 10210, '2016-05-20'),
+        ('1EXNE31S04HB51123', 14220, '2016-05-20');
 
 INSERT INTO notifications(customerID, carVin, serviceNeeded)
 	VALUES
@@ -566,7 +572,9 @@ INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
 INSERT INTO workOrder(orderNumber, carVin, orderDate, eID, recordedMilage)
   VALUES
        	('00011', 'JHLRD18691C097003', '2016-12-18', '576027904033696', '46301'),
-        ('00012', '1FBNE31S04HB51098', '2016-12-21', '925812068577979', '10210');
+        ('00012', '1FBNE31S04HB51098', '2016-12-21', '925812068577979', '10210'),
+        ('00013', '1EXNE31S04HB51123', '2016-12-21', '925812068577979', '14220');
+
 
 INSERT INTO maintSchedule(carVin, nextMaintDate)
   VALUES
@@ -616,7 +624,8 @@ INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
         ('00008','Brake Change', '1.5', '809898239915394'),
        	('00009','Wheel Alignment', '2','809898239915394'),
-       	('00010','Tire Change', '0.25', '809898239915394');
+       	('00010','Tire Change', '0.25', '809898239915394'),
+        ('00013','Tire Change', '0.25', '809898239915394');
 	
 INSERT INTO orderLine(orderNumber, jobDescription, laborHours, eID)
   VALUES
@@ -682,15 +691,15 @@ INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
 /*Queries*/
 /*1. List the customers.  For each customer, indicate which category he or she 
      fall into, and his or her contact information.*/
-    SELECT "Steady", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Steady" AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM steady
         NATURAL JOIN customer
         UNION
-    SELECT "Premier", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Premier" AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM premier
         NATURAL JOIN customer
     UNION
-    SELECT "Prospect", customerFirstName, customerLastName, customerEmail, customerPhone
+    SELECT "Prospect" AS "Type", customerFirstName, customerLastName, customerEmail, customerPhone
         FROM prospect
         NATURAL JOIN customer;
 
