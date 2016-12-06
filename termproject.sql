@@ -803,12 +803,12 @@ ORDER BY SUM(laborHours * 40 *0.7) desc;
 
 /*11. List the three services that we have performed the most in the last year 
       and how many times they were performed. */
-select orderLine.jobDescription, count(orderLine.jobDescription)
+select orderLine.jobDescription, count(orderLine.jobDescription) AS "Total"
 from workOrder
 inner join orderLine using (orderNumber)
 WHERE orderDate BETWEEN '2015-1-1' AND '2016-12-31'
 GROUP BY  orderLine.jobDescription
-order by  orderLine.jobDescription asc
+order by  COUNT(orderLine.jobDescription) DESC
 limit 3;
 
 /*12. List the three services that have brought in the most money in the last 
@@ -835,8 +835,6 @@ select mentorID from mentorship
 group by mentorID
 order by count(*) desc
 limit 1);
-
-
 
 
 /*14. Find the three skills that have the fewest mechanics who have those skills*/
@@ -905,7 +903,6 @@ UNION
 SELECT "Prospect" as "type", customerFirstName, customerLastName, (2016 - customerYear) AS "Years"
 	FROM prospect
 	NATURAL JOIN customer;
-GRANT SELECT ON customer_info TO public;
 
 
 SELECT * FROM customer_info;
@@ -917,15 +914,14 @@ managing for that customer.*/
 
 
 CREATE VIEW customer_address_v AS
-SELECT "Private", customerFirstName, customerLastName, address, zipcode
+SELECT "Private" AS "Type", customerFirstName, customerLastName, address, zipcode
 	FROM private
 	NATURAL JOIN customer
 UNION
-	SELECT "Corporate", customerFirstName, customerLastName, address, zipcode
+	SELECT "Corporate" AS "Type", customerFirstName, customerLastName, address, zipcode
 	FROM corporate
 	NATURAL JOIN address
 	NATURAL JOIN customer;
-GRANT SELECT ON customer_address_v TO public;
 
 select * from customer_address_v;
 
@@ -967,7 +963,7 @@ SELECT customerFirstName, customerLastName
     WHERE DATEDIFF(CURDATE(), lastContactDate) > 365
     GROUP BY customerID
     HAVING COUNT(customerID) >= 3;
-GRANT SELECT ON prospect_v TO public;
+
 
 select * from prospect_v;
 
