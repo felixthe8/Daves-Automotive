@@ -705,7 +705,7 @@ INSERT INTO maintGroup (jobDescription, laborHours, pkgname)
 
 /*2. For each service visit, list the total cost to the customer for that visit.
     
-    How much the customer is charged is derived value, here we charge them 40$ for every hour of
+    How much the customer is charged is a derived value, here we charge them 40$ for every hour of
     labor.
 */
 SELECT customerFirstName, customerLastName, orderDate AS "Transaction Date", laborHours * 40 AS "Total" 
@@ -725,7 +725,7 @@ INNER JOIN workOrder USING (carVin)
 INNER JOIN orderLine USING (orderNumber)
 WHERE orderDate BETWEEN '2015-1-1' AND '2016-12-31'
 GROUP BY customerFirstName, customerLastName
-ORDER BY Total desc
+ORDER BY SUM(laborHours * 40) desc
 limit 3;
 
 /*4. Find all of the mechanics who have three or more skills.*/
@@ -790,6 +790,9 @@ LIMIT 3;
 /*10.	Report on the steady customers based on the net profit that we have 
 made from them over the past year, and the dollar amount of that profit, in 
 order from the greatest to the least.
+
+The shop keeps 70% as profit while overhead is 30%
+
 */
 SELECT customerFirstName, customerLastName, SUM(laborHours * 40 *0.7) AS "Profit",
 SUM(laborHours * 40 *0.3) AS "Overhead"
@@ -838,7 +841,7 @@ limit 1);
 
 
 /*14. Find the three skills that have the fewest mechanics who have those skills*/
-SELECT skillName FROM skill
+SELECT DISTINCT skillName FROM skill
 ORDER BY skillName ASC  LIMIT 3;
 
 
@@ -869,7 +872,7 @@ inner join mechanic using (eID));
                         LIMIT 1);
 			
 	/* 3 of 4
-	This Query shows prospective that have not become steady customers
+	This Query shows prospective that have not become existing customers
 	*/
 	SELECT customerFirstName, customerLastName
 	FROM customer
