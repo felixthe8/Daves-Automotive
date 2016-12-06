@@ -71,7 +71,7 @@ CREATE TABLE corporate(
 
 CREATE TABLE appointment(
     customerID              VARCHAR(20) NOT NULL,
-    aDate                   date,   
+    aDate                   date NOT NULL,   
     CONSTRAINT appointment_pk
     PRIMARY KEY (customerID, aDate),
     CONSTRAINT appointment_fk
@@ -144,7 +144,7 @@ CREATE TABLE prospectSpecial(
 CREATE TABLE contact(
     customerID              VARCHAR(20) NOT NULL,
     method_c                VARCHAR(20),
-    date_c                  date,
+    date_c                  date    NOT NULL,
     CONSTRAINT contact_pk
     PRIMARY KEY (customerID, date_c),
     CONSTRAINT contact_fk
