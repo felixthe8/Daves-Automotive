@@ -1,15 +1,17 @@
-# cecs326termProject
-MySQL database project
-CECS 323 Term Project
-Fall 2016
+# Dave's Automotive
+CECS 323 Fall 2016  
+This is the repository for my CECS 323 term project. The goal of this project is to create and model a database for Dave's automotive, a small (but fictitious) auto repair shop.  
 
-Project Description
-You are designing a database and proof of concept for Dave’s Automotive, a small auto repair
+## Project Description
+For this project, we designed a database and proof of concept for Dave’s Automotive, a small auto repair
 shop that specializes in providing preventative maintenance that saves the customer in the end
 by staying ahead of the normal wear and tear on a vehicle.
 
+*Below is the project description*
+
+
 Dave’s Automotive has three types of customers: steady, premier, and prospective.
- The steady customers are those who have signed up for generated E-mail notifications
+* The steady customers are those who have signed up for generated E-mail notifications
 to alert them when their automobile(s) are likely to be due for some routine maintenance.
 When a customer registers a vehicle with Dave’s we ask the customer for an estimate of
 how many miles a year they expect to put on that vehicle. Each time they bring that
@@ -31,7 +33,7 @@ cost. The steady customers will then reply to the E-mail indicating which days t
 would be willing to come in for that maintenance. They get another E-mail confirming
 the date and time of their appointment.
 
- The premier customers pay an annual fee in monthly installments for their preventative
+* The premier customers pay an annual fee in monthly installments for their preventative
 maintenance. The amount of the fee will be a function of the estimate of the number of
 miles that the customer will put on the vehicle each year, the model of the vehicle, and
 the make.
@@ -49,7 +51,7 @@ unforeseen maintenance that comes up. To protect ourselves from out of control
 maintenance costs, Dave’s Automotive does not provide premier coverage for any
 vehicle with over 100,000 miles on it.
 
-The prospective customers are where the growth occurs. We provide a free oil change
+* The prospective customers are where the growth occurs. We provide a free oil change
 to our steady customers or $50 off their next monthly payment to our premier customers
 if they refer us to someone who is not currently a customer. When they make the
 referral, we get contact information on their friend/relative from the existing customer,
@@ -64,8 +66,8 @@ become a steady or premier customer after three contacts, we flag that customer 
 in all over again.
 
 A given customer can be either a private individual or a corporation of some sort.
-   If they are a private individual, we only track one address for them, their mailing address.
-   On the other hand, if they are a corporate entity, we can optionally track several
+ * If they are a private individual, we only track one address for them, their mailing address.
+ * On the other hand, if they are a corporate entity, we can optionally track several
   addresses for them. Examples of the types of address that we might track for a given
   customer is a) mailing, b) billing, c) vehicle pickup, d) vehicle delivery.
   
@@ -194,30 +196,15 @@ tables is adequate to return some data from each of these queries:
   16. Four additional queries that you make up yourselves. One query per person. Feel free
   to create additional views to support these queries if you so desire.
   
+## Getting Started
+To view this project, first install [Netbeans IDE](http://download.netbeans.org/netbeans/8.0.2/final/).  
+First, execute the DDL (Database Definition Language) - CREATE TABLE and the INSERT statements.  
+Then, execute each query as you choose. 
   
-Deliverables
+## Built With
+* MySQL - Execute CRUD operations with the database
+* NetBeans IDE
 
-Your work will be done in two parts with one submission of each part for each team. See the
-class schedule for due dates.
-The first part, design, will consist of:
-   Class diagram.
-   English description of all classes and associations.
-   If you did any denormalization in your design, please include a separate paragraph(s)
-  stating what you did and why. If you did not do any denormalization, state that and why.
-  The second part, implementation, will include:
-   A revised design, based on feedback from the first part. This includes class diagrams
-  and English descriptions of classes and associations.
-   English description of all attributes.
-   The relation scheme, based on the design.
-   DDL used to create all the tables and the DML used to insert the data
-   Queries to produce the reports, as described above along with sample output for each of
-  these queries.
-  
-Teams
-This project will be done in teams of four people, whom you may self-select.
-Content
-If you are unfamiliar with the automotive world, that need not be a problem. Please check out
-some service websites for some ideas about what typically goes into routine, preventative
-maintenance.
-http://eurosportautomotive.com/know-your- bmws-recommended- maintenance-schedule/
-http://www.toyotaofsantabarbara.com/yaris-recommended- maintenance-oil- change.htm
+## Acknowledgements
+* [John Cover](https://github.com/JohnCover)
+* [Ahmed Arbi](https://github.com/ararbi90)
